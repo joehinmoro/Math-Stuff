@@ -1,6 +1,6 @@
 // require util, path.join, express, ejs
-const util = require("./util");
-// console.log(util);
+const { data, prime, oddEven, calc, expo } = require("./util");
+// console.log
 const { join } = require("path");
 const express = require("express");
 
@@ -18,6 +18,19 @@ app.set("views", join(__dirname, "views"));
 app.use(express.static(join(__dirname, "public")));
 // parse form data from post request
 app.use(express.urlencoded({ extended: true }));
+
+// *** ROUTES ***
+// get root route
+app.get("/", (req, res) => {
+    res.redirect("/arithmetic");
+});
+
+app.get("/arithmetic", (req, res) => {
+    res.render("arithmetic", {
+        title: "Arithmetic",
+        navLinks: data["views"],
+    });
+});
 
 // listen on port 3000
 app.listen(3000, () => {
