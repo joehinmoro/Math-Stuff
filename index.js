@@ -1,6 +1,5 @@
 // require util, path.join, express, ejs
 const { data, prime, oddEven, calc, expo } = require("./util");
-// console.log
 const { join } = require("path");
 const express = require("express");
 
