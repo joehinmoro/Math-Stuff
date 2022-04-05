@@ -35,7 +35,9 @@
         <button class="btn btn-outline-light">Calculate</button>
     </form>
     <div style="height: 2.5em">
-        <p class="border h-100 mx-auto w-50 bg-white"></p>
+        <p class="border h-100 mx-auto w-50 bg-white text-dark">
+            <%= result? result: ""; %>
+        </p>
     </div>
 </section>
 <%- include("partials/foot.ejs") %>

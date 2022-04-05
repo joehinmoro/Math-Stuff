@@ -1,4 +1,4 @@
-exports.arith = (num1, num2, operator) => {
+exports.calc = (num1, num2, operator) => {
     num1 = Number(num1);
     num2 = Number(num2);
     switch (operator) {
