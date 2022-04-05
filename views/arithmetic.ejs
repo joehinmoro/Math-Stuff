@@ -11,16 +11,18 @@
                     class="form-control"
                     name="num1"
                     placeholder="First Number"
+                    value="<%=num1?num1:``; %>"
+                    required
                 />
             </div>
             <div class="col-sm-2">
                 <select name="operator" class="form-select" id="">
-                    <option value="add">plus</option>
-                    <option value="sub">minus</option>
-                    <option value="mul">times</option>
-                    <option value="div">divided by</option>
-                    <option value="exp">raised to</option>
-                    <option value="mod">modulus</option>
+                    <option value="add" <%=operator==="add"?`selected`:``%> >plus</option>
+                    <option value="sub" <%=operator==="sub"?`selected`:``%>>minus</option>
+                    <option value="mul" <%=operator==="mul"?`selected`:``%>>times</option>
+                    <option value="div" <%=operator==="div"?`selected`:``%>>divided by</option>
+                    <option value="exp" <%=operator==="exp"?`selected`:``%>>raised to</option>
+                    <option value="mod" <%=operator==="mod"?`selected`:``%>>modulus</option>
                 </select>
             </div>
             <div class="col-sm-5">
@@ -29,6 +31,8 @@
                     class="form-control"
                     name="num2"
                     placeholder="Last Number"
+                    value="<%=num2?num2:``;%>"
+                    required
                 />
             </div>
         </div>
@@ -36,7 +40,7 @@
     </form>
     <div style="height: 2.5em">
         <p class="border h-100 mx-auto w-50 bg-white text-dark">
-            <%= recentCalc.result? recentCalc.result: ""; %>
+            <%= result? result: ""; %>
         </p>
     </div>
 </section>

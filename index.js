@@ -1,8 +1,8 @@
-// require util, path.join, express, ejs,url
+// require util, path.join, express, querystring.stringify
 const { prime, oddEven, arith, expo, features, bmi } = require("./util");
 const { join } = require("path");
 const express = require("express");
-const url = require("url");
+const { stringify } = require("querystring");
 
 // create express app
 const app = express();
@@ -28,41 +28,36 @@ app.get("/", (req, res) => {
 
 // get arithmetic route, serve form for calculations
 app.get("/arithmetic", (req, res) => {
-    // const { result } = req.query;
+    const { num1, num2, operator, result } = req.query;
     // console.log(result);
-    // render arithmetic view, pass title and navlinks
-    console.log(recentCalc.arithmetic);
+    // render arithmetic view, pass title and navlinks,
+    // and recent calc data (if any)
     res.render("arithmetic", {
         title: "Arithmetic",
         navLinks: features["name"],
-        recentCalc: recentCalc.arithmetic,
+        num1,
+        num2,
+        operator,
+        result,
     });
 });
 
 // post req: arithemtic route
 app.post("/arithmetic", (req, res) => {
-    // extract operands and operator and pass to arith func
-    const { num1, num2, operator } = req.body;
-    const result = arith.calc(num1, num2, operator);
-    calcData = { num1, num2, operator, result };
-    recentCalc.arithmetic = calcData;
-    // !!!deprecated
-    // const redirectURL = url.format({
-    //     pathname: "/arithmetic",
-    //     query: {
-    //         num1,
-    //         num2,
-    //         operator,
-    //         result,
-    //     },
-    // });
-
-    res.redirect("/arithmetic");
+    try {
+        // extract operands and operator and pass to arith func
+        const { num1, num2, operator } = req.body;
+        const result = arith.calc(num1, num2, operator);
+        // embed calc data in query string of redirect url for persistence
+        const redirectURL = stringify({ num1, num2, operator, result });
+        res.redirect("/arithmetic?" + redirectURL);
+    } catch (err) {
+        console.log(err);
+        res.send("404:something went wrong");
+    }
 });
 
 // listen on port 3000
 app.listen(3000, () => {
     console.log("listening on port: 3000");
 });
-
-const recentCalc = { arithmetic: {} };

@@ -1,6 +1,9 @@
 exports.calc = (num1, num2, operator) => {
     num1 = Number(num1);
     num2 = Number(num2);
+    if (!num1 || !num2) {
+        return `invalid input`;
+    }
     switch (operator) {
         case "add":
             return num1 + num2;
