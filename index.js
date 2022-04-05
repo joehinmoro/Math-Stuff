@@ -28,13 +28,14 @@ app.get("/", (req, res) => {
 
 // get arithmetic route, serve form for calculations
 app.get("/arithmetic", (req, res) => {
-    const { result } = req.query;
-    console.log(result);
+    // const { result } = req.query;
+    // console.log(result);
     // render arithmetic view, pass title and navlinks
+    console.log(recentCalc.arithmetic);
     res.render("arithmetic", {
         title: "Arithmetic",
         navLinks: features["name"],
-        result,
+        recentCalc: recentCalc.arithmetic,
     });
 });
 
@@ -43,20 +44,25 @@ app.post("/arithmetic", (req, res) => {
     // extract operands and operator and pass to arith func
     const { num1, num2, operator } = req.body;
     const result = arith.calc(num1, num2, operator);
+    calcData = { num1, num2, operator, result };
+    recentCalc.arithmetic = calcData;
     // !!!deprecated
     // const redirectURL = url.format({
     //     pathname: "/arithmetic",
     //     query: {
     //         num1,
     //         num2,
+    //         operator,
     //         result,
     //     },
     // });
 
-    res.redirect(redirectURL);
+    res.redirect("/arithmetic");
 });
 
 // listen on port 3000
 app.listen(3000, () => {
     console.log("listening on port: 3000");
 });
+
+const recentCalc = { arithmetic: {} };
