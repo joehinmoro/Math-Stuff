@@ -1,13 +1,15 @@
 // require all utilities
-const calc = require("./calc");
+const arith = require("./arith");
+const bmi = require("./bmi");
 const expo = require("./expo");
 const oddEven = require("./oddEven");
 const prime = require("./prime");
-const data = require("./data");
+const features = require("./features.json");
 
 // export all utilities
-exports.calc = calc;
+exports.arith = arith;
 exports.expo = expo;
 exports.oddEven = oddEven;
 exports.prime = prime;
-exports.data = data;
+exports.features = features;
+exports.bmi = bmi;

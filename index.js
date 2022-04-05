@@ -1,5 +1,5 @@
 // require util, path.join, express, ejs
-const { data, prime, oddEven, calc, expo } = require("./util");
+const { prime, oddEven, arith, expo, features, bmi } = require("./util");
 const { join } = require("path");
 const express = require("express");
 
@@ -19,16 +19,27 @@ app.use(express.static(join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
 // *** ROUTES ***
-// get root route
+// get req: root route
 app.get("/", (req, res) => {
+    // redirect to arithmetic route
     res.redirect("/arithmetic");
 });
 
+// get arithmetic route, serve form for calculations
 app.get("/arithmetic", (req, res) => {
+    // render arithmetic view, pass title and navlinks
     res.render("arithmetic", {
         title: "Arithmetic",
-        navLinks: data["views"],
+        navLinks: features["name"],
     });
+});
+
+// post req: arithemtic route
+app.post("/arithmetic", (req, res) => {
+    // extract operands and operator and pass to function
+    const { num1, num2, operator } = req.body;
+    const result = "";
+    res.send(`${num1} ${operator} ${num2}`);
 });
 
 // listen on port 3000
