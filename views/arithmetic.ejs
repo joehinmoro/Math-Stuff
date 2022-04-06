@@ -6,10 +6,12 @@
     <form action="/arithmetic" method="post">
         <div class="row g-3">
             <div class="col-sm-5">
+                <label for="num1" class="form-label">Number 1</label>
                 <input
                     type="text"
                     class="form-control"
                     name="num1"
+                    id="num1"
                     placeholder="First Number"
                     value="<%=num1?num1:``; %>"
                     required

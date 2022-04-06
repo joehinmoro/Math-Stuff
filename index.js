@@ -57,6 +57,14 @@ app.post("/arithmetic", (req, res) => {
     }
 });
 
+// get req: bmi route
+app.get("/bmi", (req, res) => {
+    res.render("bmi", {
+        title: "BMI Calculator",
+        navLinks: features["name"],
+    });
+});
+
 // listen on port 3000
 app.listen(3000, () => {
     console.log("listening on port: 3000");
