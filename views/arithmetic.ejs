@@ -14,6 +14,8 @@
                     id="num1"
                     placeholder="First Number"
                     value="<%=num1?num1:``; %>"
+                    pattern="[\.\d]+"
+                    title="Please enter a number!"
                     required
                 />
             </div>
@@ -34,6 +36,8 @@
                     name="num2"
                     placeholder="Last Number"
                     value="<%=num2?num2:``;%>"
+                    pattern="[\.\d]+"
+                    title="Please enter a number!"
                     required
                 />
             </div>

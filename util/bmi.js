@@ -15,7 +15,9 @@ exports.BMIClass = (BMI) => {
         return "Obesity Class I";
     } else if (BMI < 40) {
         return "Obesity Class II";
-    } else {
+    } else if (BMI < 400) {
         return "Obesity Class III";
+    } else {
+        return "Invalid BMI";
     }
 };

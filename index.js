@@ -29,6 +29,7 @@ app.get("/", (req, res) => {
 
 // get arithmetic route, serve form for calculations
 app.get("/arithmetic", (req, res) => {
+    // destruct query string
     const { num1, num2, operator, result } = req.query;
     // console.log(result);
     // render arithmetic view, pass title and navlinks,
@@ -66,27 +67,40 @@ app.post("/arithmetic", (req, res) => {
 
 // get req: bmi route
 app.get("/bmi", (req, res) => {
+    // destruct query string and pass to view
+    const { weight, height, bmiResult, bmiClass } = req.query;
+    // render bmi view
     res.render("bmi", {
         viewTitle: "BMI Calculator",
         viewName: "BMI",
         navLinks: features["name"],
-    });
-});
-
-// post req: bmi route
-app.post("/bmi", (req, res) => {
-    // extract request data and pass to bmi func
-    const { weight, height } = req.body;
-    const bmiResult = bmi.BMICalc(weight, height);
-    const bmiClass = bmi.BMIClass(bmiResult);
-    const redirectQueryString = stringify({
         weight,
         height,
         bmiResult,
         bmiClass,
     });
+});
 
-    res.redirect("/bmi?" + redirectQueryString);
+// post req: bmi route
+app.post("/bmi", (req, res) => {
+    try {
+        // extract request data and pass to bmi func
+        const { weight, height } = req.body;
+        const bmiResult = bmi.BMICalc(weight, height);
+        const bmiClass = bmi.BMIClass(bmiResult);
+        // embed calc data in query string of redirect url for persistence
+        const redirectQueryString = stringify({
+            weight,
+            height,
+            bmiResult,
+            bmiClass,
+        });
+
+        res.redirect("/bmi?" + redirectQueryString);
+    } catch (e) {
+        console.dir(e);
+        res.send("something went wrong");
+    }
 });
 
 // listen on port 3000

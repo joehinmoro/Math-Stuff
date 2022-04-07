@@ -1,6 +1,6 @@
 <%- include("partials/head") %>
 <section class="container text-light bg-dark mt-3 p-2">
-    <h2>BMI Calculator</h2>
+    <h2>Calculate BMI</h2>
     <div class="container">
         <form method="post">
             <div class="row mb-3">
@@ -13,7 +13,9 @@
                         class="form-control"
                         id="inputEmail3"
                         name="weight"
-                        value=""
+                        value="<%=weight?weight:``;%>"
+                        pattern="[\.\d]+"
+                        title="Please enter a number!"
                     />
                 </div>
                 <label
@@ -27,7 +29,9 @@
                         class="form-control"
                         id="inputPassword3"
                         name="height"
-                        value=""
+                        value="<%=height?height:``;%>"
+                        pattern="[\.\d]+"
+                        title="Please enter a number!"
                     />
                 </div>
                 <button type="submit" class="btn btn-primary col-sm-2">
@@ -44,7 +48,8 @@
                         class="form-control"
                         id="inputEmail3"
                         name="bmiNum"
-                        value=""
+                        value="<%=bmiResult?bmiResult:``;%>"
+                        disabled
                     />
                 </div>
                 <label
@@ -58,7 +63,8 @@
                         class="form-control"
                         id="inputPassword3"
                         name="status"
-                        value=""
+                        value="<%=bmiClass?bmiClass:``;%>"
+                        disabled
                     />
                 </div>
             </div>
