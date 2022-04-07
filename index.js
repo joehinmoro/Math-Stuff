@@ -23,26 +23,30 @@ app.use(express.urlencoded({ extended: true }));
 // *** ROUTES ***
 // get req: root route
 app.get("/", (req, res) => {
-    // redirect to arithmetic route
-    res.redirect("/arithmetic");
+    try {
+        // redirect to arithmetic route
+        res.redirect("/arithmetic");
+    } catch (err) {}
 });
 
 // get arithmetic route, serve form for calculations
 app.get("/arithmetic", (req, res) => {
-    // destruct query string
-    const { num1, num2, operator, result } = req.query;
-    // console.log(result);
-    // render arithmetic view, pass title and navlinks,
-    // and recent calc data (if any)
-    res.render("arithmetic", {
-        viewTitle: "Arithmetic Calculator",
-        viewName: "Arithmetic",
-        navLinks: features["name"],
-        num1,
-        num2,
-        operator,
-        result,
-    });
+    try {
+        // destruct query string
+        const { num1, num2, operator, result } = req.query;
+        // console.log(result);
+        // render arithmetic view, pass title and navlinks,
+        // and recent calc data (if any)
+        res.render("arithmetic", {
+            viewTitle: "Arithmetic Calculator",
+            viewName: "Arithmetic",
+            navLinks: features["name"],
+            num1,
+            num2,
+            operator,
+            result,
+        });
+    } catch (err) {}
 });
 
 // post req: arithemtic route
@@ -67,18 +71,23 @@ app.post("/arithmetic", (req, res) => {
 
 // get req: bmi route
 app.get("/bmi", (req, res) => {
-    // destruct query string and pass to view
-    const { weight, height, bmiResult, bmiClass } = req.query;
-    // render bmi view
-    res.render("bmi", {
-        viewTitle: "BMI Calculator",
-        viewName: "BMI",
-        navLinks: features["name"],
-        weight,
-        height,
-        bmiResult,
-        bmiClass,
-    });
+    try {
+        // destruct query string and pass to view
+        const { weight, height, bmiResult, bmiClass } = req.query;
+        // render bmi view
+        res.render("bmi", {
+            viewTitle: "BMI Calculator",
+            viewName: "BMI",
+            navLinks: features["name"],
+            weight,
+            height,
+            bmiResult,
+            bmiClass,
+        });
+    } catch (err) {
+        console.log(err);
+        res.send("404:something went wrong");
+    }
 });
 
 // post req: bmi route
@@ -97,8 +106,8 @@ app.post("/bmi", (req, res) => {
         });
 
         res.redirect("/bmi?" + redirectQueryString);
-    } catch (e) {
-        console.dir(e);
+    } catch (err) {
+        console.dir(err);
         res.send("something went wrong");
     }
 });
