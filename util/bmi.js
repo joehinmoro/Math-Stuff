@@ -1,4 +1,5 @@
-exports.BMICalc = (weight, height) => weight * (height * height);
+exports.BMICalc = (weight, height) =>
+    (weight / (height * height)).toFixed(2);
 
 exports.BMIClass = (BMI) => {
     BMI = Number(BMI);

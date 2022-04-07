@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/bootstrap.css">
     <title>
-        <%= title %>
+        <%= viewTitle %>
     </title>
 </head>
 <body>
@@ -24,7 +24,7 @@
                 <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
                     <div class="navbar-nav ms-auto">
                         <% for (let navLink of navLinks.sort()) { %> 
-                            <% if (navLink === title) { %>
+                            <% if (navLink === viewName) { %>
                                 <a class="nav-link active" href="/<%= navLink.toLowerCase() %>"><%= navLink %> </a>
                             <% } else { %>
                                 <a class="nav-link" href="/<%= navLink.toLowerCase() %>"><%= navLink %> </a>

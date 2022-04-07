@@ -3,6 +3,7 @@ const { prime, oddEven, arith, expo, features, bmi } = require("./util");
 const { join } = require("path");
 const express = require("express");
 const { stringify } = require("querystring");
+const { BMIClass } = require("./util/bmi");
 
 // create express app
 const app = express();
@@ -33,7 +34,8 @@ app.get("/arithmetic", (req, res) => {
     // render arithmetic view, pass title and navlinks,
     // and recent calc data (if any)
     res.render("arithmetic", {
-        title: "Arithmetic",
+        viewTitle: "Arithmetic Calculator",
+        viewName: "Arithmetic",
         navLinks: features["name"],
         num1,
         num2,
@@ -45,12 +47,17 @@ app.get("/arithmetic", (req, res) => {
 // post req: arithemtic route
 app.post("/arithmetic", (req, res) => {
     try {
-        // extract operands and operator and pass to arith func
+        // extract request data and pass to arith func
         const { num1, num2, operator } = req.body;
         const result = arith.calc(num1, num2, operator);
         // embed calc data in query string of redirect url for persistence
-        const redirectURL = stringify({ num1, num2, operator, result });
-        res.redirect("/arithmetic?" + redirectURL);
+        const redirectQueryString = stringify({
+            num1,
+            num2,
+            operator,
+            result,
+        });
+        res.redirect("/arithmetic?" + redirectQueryString);
     } catch (err) {
         console.log(err);
         res.send("404:something went wrong");
@@ -60,9 +67,26 @@ app.post("/arithmetic", (req, res) => {
 // get req: bmi route
 app.get("/bmi", (req, res) => {
     res.render("bmi", {
-        title: "BMI Calculator",
+        viewTitle: "BMI Calculator",
+        viewName: "BMI",
         navLinks: features["name"],
     });
+});
+
+// post req: bmi route
+app.post("/bmi", (req, res) => {
+    // extract request data and pass to bmi func
+    const { weight, height } = req.body;
+    const bmiResult = bmi.BMICalc(weight, height);
+    const bmiClass = bmi.BMIClass(bmiResult);
+    const redirectQueryString = stringify({
+        weight,
+        height,
+        bmiResult,
+        bmiClass,
+    });
+
+    res.redirect("/bmi?" + redirectQueryString);
 });
 
 // listen on port 3000
