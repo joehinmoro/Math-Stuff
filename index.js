@@ -4,6 +4,7 @@ const { join } = require("path");
 const express = require("express");
 const { stringify } = require("querystring");
 const { BMIClass } = require("./util/bmi");
+const { Console } = require("console");
 
 // create express app
 const app = express();
@@ -108,6 +109,30 @@ app.post("/bmi", (req, res) => {
         res.redirect("/bmi?" + redirectQueryString);
     } catch (err) {
         console.dir(err);
+        res.send("something went wrong");
+    }
+});
+
+// get req: prime route
+app.get("/prime", (req, res) => {
+    try {
+        //render the prime view
+        res.render("prime", {
+            viewTitle: "Prime Numbers",
+            viewName: "Prime",
+            navLinks: features["name"],
+        });
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+// post req: prime route
+app.post("/prime", (req, res) => {
+    try {
+        const { num } = req.body;
+    } catch (err) {
+        console.log(err);
         res.send("something went wrong");
     }
 });

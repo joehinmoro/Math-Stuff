@@ -1,0 +1,21 @@
+<%- include("partials/head") %>
+<section class="container bg-dark text-light mt-3 p-3">
+    <h2>Generate Prime Factors</h2>
+    <form method="post">
+        <div class="row">
+            <div class="form-floating col-sm-12 col-md-8 col-lg-9 mt-3">
+                <input type="text" class="form-control bg-dark text-light" id="num" placeholder="Enter a number" value="" />
+                <label for="num">Enter a number</label>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-3 mt-3">
+                <button type="submit" class="btn btn-outline-light h-100 d-block mx-auto">Generate Primes</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mt-3">
+                <textarea name="" id="" cols="30" rows="10" class="bg-dark border-light text-light" disabled></textarea>
+            </div>
+        </div>
+    </form>
+</section>
+<%- include("partials/foot") %>
