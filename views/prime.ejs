@@ -4,8 +4,17 @@
     <form method="post">
         <div class="row">
             <div class="form-floating col-sm-12 col-md-8 col-lg-9 mt-3">
-                <input type="text" class="form-control bg-dark text-light" id="num" placeholder="Enter a number" value="" />
-                <label for="num">Enter a number</label>
+                <input
+                    type="text"
+                    class="form-control bg-dark text-light"
+                    id="num"
+                    placeholder="Enter a number from 2 - 100000"
+                    name="num"
+                    value="<%=num?num:``;%>"
+                    pattern="^(\d{1,5})|(10{5})$"
+                    title="Enter a number from 2 - 100000"
+                />
+                <label for="num">Enter a number from 2 - 100000</label>
             </div>
             <div class="col-sm-12 col-md-4 col-lg-3 mt-3">
                 <button type="submit" class="btn btn-outline-light h-100 d-block mx-auto">Generate Primes</button>
@@ -13,7 +22,18 @@
         </div>
         <div class="row">
             <div class="col mt-3">
-                <textarea name="" id="" cols="30" rows="10" class="bg-dark border-light text-light" disabled></textarea>
+                <div class="form-floating col-sm-12 col-md-8 col-lg-9 mt-3">
+                    <input
+                        type="text"
+                        class="form-control bg-dark text-light"
+                        id="num"
+                        placeholder="Enter a number"
+                        name="num"
+                        value="<%=primeFactors?primeFactors:``;%>"
+                        disabled
+                    />
+                    <label for="num" class="text-muted">Prime Factors</label>
+                </div>
             </div>
         </div>
     </form>

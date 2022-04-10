@@ -4,7 +4,6 @@ const { join } = require("path");
 const express = require("express");
 const { stringify } = require("querystring");
 const { BMIClass } = require("./util/bmi");
-const { Console } = require("console");
 
 // create express app
 const app = express();
@@ -116,11 +115,15 @@ app.post("/bmi", (req, res) => {
 // get req: prime route
 app.get("/prime", (req, res) => {
     try {
+        // destruct query string for recent operation
+        const { num, primeFactors } = req.query;
         //render the prime view
         res.render("prime", {
             viewTitle: "Prime Numbers",
             viewName: "Prime",
             navLinks: features["name"],
+            num,
+            primeFactors,
         });
     } catch (err) {
         console.log(err);
@@ -130,7 +133,19 @@ app.get("/prime", (req, res) => {
 // post req: prime route
 app.post("/prime", (req, res) => {
     try {
+        // extract num for which prime factors will be generated
         const { num } = req.body;
+        // pass num to prime factors func
+        const primeFactors = prime.positivePrimeFactors(num).toString();
+        // contstruct query string containing prime factors
+        const redirectQueryString = stringify({
+            num,
+            primeFactors,
+        });
+        // redirect to prime route with querystring
+        res.redirect("/prime?" + redirectQueryString);
+
+        // res.send(primeFactors.toString());
     } catch (err) {
         console.log(err);
         res.send("something went wrong");
